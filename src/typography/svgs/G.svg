@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="esqueleto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170.57 186.33">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: .25px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M143.99,99.28c0,43.83-11.03,77.48-49.47,77.48-45.9,0-67.95-28.33-67.95-83.6S48.63,9.15,94.39,9.28c33.96.09,49.51,32.78,49.51,32.78"/>
+  <line class="cls-1" x1="90.68" y1="99.28" x2="143.99" y2="99.28"/>
+  <line class="cls-1" x1="143.99" y1="99.28" x2="143.99" y2="176.77"/>
+</svg>
