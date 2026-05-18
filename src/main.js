@@ -65,7 +65,7 @@ population.forEach((genome, i) => {
     if (poly.length < 2) return;
     const path = new scope.Path({
       strokeColor: "#1a1612",
-      strokeWidth: 10,
+      strokeWidth: TEST_PARAMS.extensiveness * 9 + 1,
       strokeCap: "round",
       strokeJoin: "butt",
     });
