@@ -1,4 +1,6 @@
 import skeletons from "./skeletons.json";
+import { buildPolylines } from "./renderer.js";
+import { state } from "../state.js";
 
 const POPULATION_SIZE = 6;
 const MUTATION_RATE = 0.1;
@@ -105,9 +107,22 @@ function buildTree(segments) {
   return { segments, rootId };
 }
 
+function getHeight(polylines){
+  const allPoints = polylines.flat();
+  const maxY = Math.max(...allPoints.map(p => p.y));
+  const minY = Math.min(...allPoints.map(p => p.y));
+  return maxY - minY;
+}
+
 function createGenome(char, params) {
+  const targetMaxHeight = state.canvasSize / 0.8; // account fro scaling, change later to change dinamically
   const segments = buildSegments(char, params);
-  const { segments: tree, rootId } = buildTree(segments);
+  
+  let tree, rootId, attempts = 0;
+  do {
+    ({ segments: tree, rootId } = buildTree(structuredClone(segments)));
+    attempts++;
+  } while (getHeight(buildPolylines({ segments: tree, rootId })) > targetMaxHeight && attempts < 100);
 
   return { char, segments: tree, rootId };
 }
@@ -124,7 +139,7 @@ function mutate(genome, params) {
       seg.angle = (Math.random() * 2 - 1) * maxAngle;
     }
 
-    // Mutate connection — rewire to a different parent
+    // Mutate connection — rewire to a different parent and connection points
     if (Math.random() < MUTATION_RATE && i !== clone.rootId) {
       const descendants = getDescendants(clone.segments, i);
       const candidates = clone.segments.filter(

@@ -4,7 +4,7 @@ import paper from "paper";
 
 // ── Hardcoded test data ───────────────────────────────────────
 
-const TEST_CHAR = "O";
+const TEST_CHAR = "R";
 const TEST_PARAMS = {
   complexity: 1,
   openness: 1,
