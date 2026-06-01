@@ -1,0 +1,150 @@
+@charset "utf-8";
+
+/* =========================
+   VARIABLES
+========================= */
+:root {
+  /* colours */
+  --black: #2a2a2a;
+  --dark-grey: #939393;
+  --grey: #dddddd;
+}
+
+/* =========================
+   FONTS
+========================= */
+@font-face {
+  font-family: "grotesk mono regular";
+  src: url("../assets/fonts/ESKlarheitGroteskMono-Rg-TRIAL.otf") format("opentype");
+}
+
+/* =========================
+   RESET & BASE
+========================= */
+html {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: var(--grey);
+  margin: 0;
+}
+
+body { 
+    margin: 0; 
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+}
+
+
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+h1 {
+  color: var(--black);
+  font-family: "grotesk mono regular";
+  font-size: 2vw;
+  line-height: 2vw;
+  margin: 0;
+}
+
+h3 {
+  color: var(--black);
+  font-family: "grotesk mono regular";
+  text-transform: uppercase;
+  font-size: 1.15vw;
+  margin: 0;
+}
+
+p {
+  color: var(--black);
+  font-family: "grotesk mono regular";
+  font-size: 1.15vw;
+  line-height: 1.45vw;
+  margin: 0;
+}
+
+h5 {
+  color: var(--black);
+  font-family: "grotesk mono regular";
+  text-transform: uppercase;
+  font-size: 1vw;
+  line-height: 1.3vw;
+  margin: 0;
+}
+
+h6 {
+  color: var(--black);
+  font-family: "grotesk mono regular";
+  font-size: 1vw;
+  line-height: 1.3vw;
+  margin: 0;
+}
+
+/* =========================
+   BUTTONS & INPUTS
+========================= */
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1.2vh 15px;
+  background-color: var(--grey);
+  gap: 0.5vw;
+  width: fit-content;
+}
+
+.button:hover { 
+    background-color: var(--dark-grey); 
+}
+
+/* =========================
+   HEADER / APP BAR / NAV
+========================= */
+header{
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 16vw;
+    height: 100vh;
+}
+
+main {
+    display: block;
+    position: relative;
+    padding-left: 16vw;
+    width: 84vw;
+}
+
+nav {
+  justify-self: flex-start;
+  display: flex;
+  width: 10vw;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav li a {
+    color: var(--black);
+    font-family: "grotesk mono regular";
+    text-transform: uppercase;
+    font-size: 1vw;
+}
+
+nav li a:hover {
+    text-decoration: underline;
+}
+
+#selected {
+    text-decoration: underline;
+}
+
+
+
