@@ -3,6 +3,12 @@ import { buildPolylines } from "./typography/renderer.js";
 import { state } from "./state.js";
 import paper from "paper";
 
+init();
+
+function init() {
+
+
+
 // ── Test data (replace with state when APIs are ready) ────────
 
 const TEST_TITLE = "BABALULSGFIUG";
@@ -19,12 +25,12 @@ function createParameterItem(key, value) {
 
   const container = document.createElement("div");
   container.classList.add("parameter");
-  const label = document.createElement("p");
+  const label = document.createElement("h5");
   label.classList.add("title");
   label.textContent = key.charAt(0).toUpperCase() + key.slice(1);
   const container2 = document.createElement("div");
-  const low = document.createElement("span");
-  low.textContent = "Low";
+  const low = document.createElement("h6");
+  low.textContent = "low";
   const container3 = document.createElement("div");
   container3.classList.add("rating-container");
 
@@ -33,8 +39,8 @@ function createParameterItem(key, value) {
     if (i === idx) box.classList.add("selected");
     container3.appendChild(box);
   }
-  const high = document.createElement("span");
-  high.textContent = "High";
+  const high = document.createElement("h6");
+  high.textContent = "high";
 
   container2.appendChild(low);
   container2.appendChild(container3);
@@ -47,16 +53,16 @@ function createParameterItem(key, value) {
 
 const parameterContainer = document.getElementById("parameter-container");
 parameterContainer.appendChild(
-  createParameterItem("complexity", TEST_PARAMS.complexity),
+  createParameterItem("plot density", TEST_PARAMS.complexity),
 );
 parameterContainer.appendChild(
   createParameterItem("openness", TEST_PARAMS.openness),
 );
 parameterContainer.appendChild(
-  createParameterItem("darkness", TEST_PARAMS.darkness),
+  createParameterItem("emotional tone", TEST_PARAMS.darkness),
 );
 parameterContainer.appendChild(
-  createParameterItem("extensiveness", TEST_PARAMS.extensiveness),
+  createParameterItem("textual length", TEST_PARAMS.extensiveness),
 );
 
 // ── Canvas helpers ────────────────────────────────────────────
@@ -131,7 +137,7 @@ function createPopulationRow(char, row) {
 
   // ── Letter label ──
   const label = document.createElement("div");
-  const charLabel = document.createElement("p");
+  const charLabel = document.createElement("h2");
   charLabel.textContent = char;
   label.appendChild(charLabel);
   container.appendChild(label);
@@ -153,7 +159,7 @@ function createPopulationRow(char, row) {
 
   const evolveBtn = document.createElement("button");
   const evolveIcon = document.createElement("img");
-  const evolveTT = document.createElement("span");
+  const evolveTT = document.createElement("h6");
 
   evolveIcon.src = "../rotate.svg";
   evolveTT.classList.add("tooltip");
@@ -164,7 +170,7 @@ function createPopulationRow(char, row) {
 
   const finalizeBtn = document.createElement("button");
   const finalizeIcon = document.createElement("img");
-  const finalizeTT = document.createElement("span");
+  const finalizeTT = document.createElement("h6");
   finalizeIcon.src = "../done.svg";
   finalizeTT.classList.add("tooltip");
   finalizeTT.textContent = "Once you are satisfied with the outcome, select your preferred option to create the final version."
@@ -272,6 +278,37 @@ function checkAllFinalized() {
   makeBtn.disabled = !allDone;
 }
 
+
+
+// ALTERAR ISTO DE SITIO ??
+const app = document.getElementById("app");
+const links = document.querySelectorAll("nav a");
+
+function setView(view) {
+  app.classList.remove("Evo-View", "Abt-View", "Cover-View");
+  app.classList.add(view);
+}
+
+links.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    links.forEach((l) => l.classList.remove("active"));
+    link.classList.add("active");
+
+    setView(link.dataset.view);
+  });
+});
+
+makeBtn.addEventListener("click", () => {
+  setView("Cover-View");
+});
+
+  setView("Evo-View");
+
+  
+
 // ── Render all rows ───────────────────────────────────────────
 
 rowRegistry.forEach((row, char) => createPopulationRow(char, row));
+}
