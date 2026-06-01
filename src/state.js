@@ -1,28 +1,44 @@
-
-
 export const state = {
-  book: null,          // full Open Library record { title, author, key, coverId, ... }
+  book: null,
   params: null,        // { complexity, openness, darkness, extensiveness, type }
-  title: '',           // cleaned uppercase title, e.g. "PRIDE AND PREJUDICE"
-  populationMap: null, // Map<char, genome[]>  — from createPopulationMap()
-  selectedMap: null,   // Map<char, genome[]>  — user's current selections, from UI
+  title: '',
+  populationMap: null, // Map<char, genome[]>
+  selectedMap: null,   
   canvasSize: 200,     // overwritten on init for dynamic sizing
+
+  finalizedMap: new Map(), // char, genome
+  view: 'evolution', // 'evolution' | 'cover'
 }
 
-function resetState(){
+export function resetState(){
     state.book = null;
     state.params = null;
     state.title = '';
     state.populationMap = null;
     state.selectedMap = null;
     state.canvasSize = 200;
+    state.finalizedMap = new Map();
+    state.view = 'evolution';
 }
 
-function setBook(book){
+export function setBook(book){
     state.book = book;
     state.title = book.title.toUpperCase().replace(/[^A-Z0-9]/g, "");
 }
 
-function setParams(params){
+export function setParams(params){
     state.params = params;
+}
+
+export function finalizeGlyph(char, genome){
+    state.finalizedMap.set(char,genome);
+}
+
+export function allLettersFinalized(){
+    const unique = [...new Set(state.title.replace(/[^A-Z0-9]/g, ""))];
+    return unique.every(char => state.finalizedMap.has(char));
+}
+
+export function setView(view){
+    state.view = view;
 }

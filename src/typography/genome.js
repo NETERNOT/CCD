@@ -2,8 +2,8 @@ import skeletons from "./skeletons.json";
 import { buildPolylines } from "./renderer.js";
 import { state } from "../state.js";
 
-const POPULATION_SIZE = 6;
-const MUTATION_RATE = 0.1;
+const POPULATION_SIZE = 5;
+const MUTATION_RATE = 0.4;
 const TOURNAMENT_SIZE = 3;
 
 // ── Helpers ───────────────────────────────────────────────────
@@ -115,7 +115,7 @@ function getHeight(polylines){
 }
 
 function createGenome(char, params) {
-  const targetMaxHeight = state.canvasSize / 0.8; // account fro scaling, change later to change dinamically
+  const targetMaxHeight = 250; // target from experimentation
   const segments = buildSegments(char, params);
   
   let tree, rootId, attempts = 0;

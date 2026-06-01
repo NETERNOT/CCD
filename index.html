@@ -1,13 +1,51 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>biblioglyph</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>biblioglyph</title>
+</head>
+
+<body>
+  <div id="app" class="Evo-View">
+
+    <aside id="left-aside">
+      <div id="top"> <!-- top -->
+        <img src="/Logo.svg"> <!--  logo  -->
+        <input id="search-container" type="text" class="Evo-Only" placeholder="Type the title of the book...">
+      </div>
+
+      <!-- stats container -->
+      <div id="parameter-container" class="Evo-Only"></div>
+
+    </aside>
+
+    <div id="right">
+
+      <nav> <button>Create</button> <button>Gallery</button> <button>About</button> </nav>
+
+      <main>
+        <div id="evolution-container" class="Evo-Only">
+          <p>Select one or more glyphs per letter to guide its evolution.</p>
+
+          <div class="population-map"></div>
+
+          <button disabled><span>Make</span><span>-></span></button>
+
+        </div>
+
+        <div id="about" class="Abt-Only">
+          <!-- Escreve Aqui o HTML do about -->
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
