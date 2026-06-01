@@ -8,6 +8,18 @@
   --black: #2a2a2a;
   --dark-grey: #939393;
   --grey: #dddddd;
+
+  /* column --> 8.35vw */
+  --padding-width: 1.5vw;
+  --one-column: 9.85vw;
+  --two-column: 19.7vw;
+  --three-column: 29.55vw;
+  --four-column: 39.4vw;
+  --five-column: 49.25vw;
+  --six-column: 59.1vw;
+  --seven-column: 68.95vw;
+  --eight-column: 78.8vw;
+  --nine-column: 88.65vw;
 }
 
 /* =========================
@@ -47,11 +59,15 @@ li {
    TYPOGRAPHY
 ========================= */
 h1 {
-  color: var(--black);
-  font-family: "grotesk mono regular";
-  font-size: 2vw;
-  line-height: 2vw;
-  margin: 0;
+    margin: 0;
+    width: 100%;
+
+    color: var(--black);
+    font-family: "grotesk mono regular";
+
+    font-size: 13.8cqw;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 h3 {
@@ -74,16 +90,16 @@ h5 {
   color: var(--black);
   font-family: "grotesk mono regular";
   text-transform: uppercase;
-  font-size: 1vw;
-  line-height: 1.3vw;
+  font-size: 0.75vw;
+  line-height: 1vw;
   margin: 0;
 }
 
 h6 {
   color: var(--black);
   font-family: "grotesk mono regular";
-  font-size: 1vw;
-  line-height: 1.3vw;
+  font-size: 0.75vw;
+  line-height: 1vw;
   margin: 0;
 }
 
@@ -107,28 +123,38 @@ h6 {
 /* =========================
    HEADER / APP BAR / NAV
 ========================= */
-header{
+header {
     display: block;
     position: fixed;
     top: 0;
     left: 0;
-    width: 16vw;
+    padding: var(--padding-width);
+    width: var(--two-column);
     height: 100vh;
+    border-right: 1px solid var(--black);
+
+    container-type: inline-size;
 }
 
 main {
     display: block;
     position: relative;
-    padding-left: 16vw;
-    width: 84vw;
+    padding-left: 24.2vw;
+    width: 100vw;
+    padding-top: var(--padding-width);
 }
 
 nav {
   justify-self: flex-start;
   display: flex;
-  width: 10vw;
+  width: var(--one-column);
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+}
+
+li {
+    margin: 0;
+    padding: 0;
 }
 
 nav li a {
@@ -136,6 +162,8 @@ nav li a {
     font-family: "grotesk mono regular";
     text-transform: uppercase;
     font-size: 1vw;
+    display: block;
+    line-height: 1.5;
 }
 
 nav li a:hover {
@@ -148,3 +176,51 @@ nav li a:hover {
 
 
 
+
+/* =========================
+   DESCRIPTION BOOK
+========================= */
+#parameters_book {
+      position: absolute;
+      height: fit-content;
+      bottom: 10vh;
+      width: fit-content;
+      justify-self: center;
+}
+
+
+.parameter {
+      padding-top: var(--padding-width);
+      text-align: center;
+  }
+
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 0.75vw;
+      justify-content: center;
+    }
+
+    .row h6:first-of-type {
+      text-align: right;
+    }
+
+    .parameter h5 {
+      margin-bottom: 1vh;
+    }
+
+    .segmentos {
+      display: flex;
+    }
+
+    .seg {
+      width: 1vw;
+      height: 1vw;
+      border: 1px solid var(--black);
+      background: transparent;
+    }
+
+    .seg.ativo {
+      background: var(--dark-grey);
+    }
