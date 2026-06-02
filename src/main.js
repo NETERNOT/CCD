@@ -1,34 +1,25 @@
 import { createNewPopulation, evolvePopulation } from "./typography/genome.js";
 import { state } from "./state.js";
 import { createParameterItem, createPopulationRow } from "./ui/evoView.js";
-
-const app = document.getElementById("app");
 import paper from "paper";
 import { applyPalette, getSelectedGenreIndex } from "./bookcover/colors.js";
 
-init();
-
-function init() {
-
-
-
-// ── Test data (replace with state when APIs are ready) ────────
-
-const TEST_TITLE = "abcd";
+const app = document.getElementById("app");
+const TEST_TITLE = "b5";
 const TEST_PARAMS = {
   complexity: 0,
-  openness: .4,
+  openness: 0.4,
   darkness: 0.1,
-  extensiveness: 1,
+  extensiveness: .5,
   type: "vanilla",
 };
 
 const parameterContainer = document.getElementById("parameter-container");
 Object.entries(TEST_PARAMS).forEach(([key, value]) => {
-  if (typeof value === "number"){
-    parameterContainer.appendChild(createParameterItem(key, value))
+  if (typeof value === "number") {
+    parameterContainer.appendChild(createParameterItem(key, value));
   }
-})
+});
 
 // ── Row registry ──────────────────────────────────────────────
 // char → { population, selected, canvases, scopes,
@@ -62,16 +53,16 @@ function checkAllFinalized() {
   makeBtn.disabled = ![...rowRegistry.values()].every((row) => row.finalized);
 }
 
-
 // ── Render all rows ───────────────────────────────────────────
 
-rowRegistry.forEach((row, char) => createPopulationRow(char, row, TEST_PARAMS, checkAllFinalized));
+rowRegistry.forEach((row, char) =>
+  createPopulationRow(char, row, TEST_PARAMS, checkAllFinalized),
+);
 
-// ALTERAR ISTO DE SITIO ??
-const app = document.getElementById("app");
+
 const links = document.querySelectorAll("nav a");
 const randomizeBtn = document.querySelector("#color-container .button_txt");
- 
+
 if (randomizeBtn) {
   randomizeBtn.addEventListener("click", () => {
     const idx = getSelectedGenreIndex();
@@ -98,5 +89,4 @@ links.forEach((link) => {
 makeBtn.addEventListener("click", () => {
   setView("Cover-View");
 });
-  setView("Evo-View"); 
-}
+
