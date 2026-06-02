@@ -2,6 +2,7 @@ import { createNewPopulation, evolvePopulation } from "./typography/genome.js";
 import { buildPolylines } from "./typography/renderer.js";
 import { state } from "./state.js";
 import paper from "paper";
+import { applyPalette, getSelectedGenreIndex } from "./bookcover/colors.js";
 
 init();
 
@@ -283,6 +284,14 @@ function checkAllFinalized() {
 // ALTERAR ISTO DE SITIO ??
 const app = document.getElementById("app");
 const links = document.querySelectorAll("nav a");
+const randomizeBtn = document.querySelector("#color-container .button_txt");
+ 
+if (randomizeBtn) {
+  randomizeBtn.addEventListener("click", () => {
+    const idx = getSelectedGenreIndex();
+    applyPalette(idx);
+  });
+}
 
 function setView(view) {
   app.classList.remove("Evo-View", "Abt-View", "Cover-View");
@@ -305,6 +314,8 @@ makeBtn.addEventListener("click", () => {
 });
 
   setView("Evo-View");
+
+ 
 
   
 

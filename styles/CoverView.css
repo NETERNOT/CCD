@@ -10,3 +10,21 @@ label {
     font-size: 0.6rem;
     text-transform: uppercase;
 }
+
+#bookcover {
+    display: flex;
+    flex-direction: row;
+    min-height: 0;
+    width: 80vw;
+    overflow: scroll;
+    gap: 1rem;
+    min-height: 0;
+    padding-bottom: 8rem;
+}
+
+#bookcover > div {
+    width: 8rem;
+    height: 8rem;
+    gap: 1rem;
+    border: 1px solid #000;
+}

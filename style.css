@@ -37,12 +37,12 @@ h2 {
 
 h3 {
     font-family: 'Grotesk Mono Bold', monospace;
-    font-size: 0.9rem;
+    font-size: 1rem;
     text-transform: uppercase;
 }
 
 h4 {
-    font-size: 0.9rem;
+    font-size: 1rem;
     text-transform: uppercase;
 }
 
@@ -56,7 +56,7 @@ a:hover {
 }
 
 p {
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.35;
 }
 
@@ -69,6 +69,26 @@ h6 {
     font-family: 'Grotesk Mono', monospace;
     font-size: 0.6rem;
     line-height: 1.35;
+}
+
+.button_txt {
+    background-color: var(--background-color);
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap:nowrap;
+    word-break: keep-all;
+    border: 1px solid var(--primary-color);
+    padding: 0.5rem 0.75rem;
+    text-transform: uppercase;
+    min-width: 8rem;
+    gap: 3rem;
+}
+
+.button_txt:hover {
+    background-color: var(--secondary-color);
+    cursor: pointer;
 }
 
 
@@ -283,6 +303,7 @@ h6 {
                                 border: 1px solid var(--primary-color);
                                 padding: .3rem;
                                 position: relative;
+                                cursor: pointer;
 
                                 &:disabled{
                                     opacity: .3;
@@ -318,20 +339,9 @@ h6 {
             }
 
             &>button{
-                /* Make button */
                 position: absolute;
                 bottom: 2rem;
                 right: 0;
-
-                background-color: var(--background-color);
-                padding: 1rem;
-
-                display: flex;
-                gap: 1rem;
-                flex-wrap:nowrap;
-                word-break: keep-all;
-                font-size: 1.25rem;
-                border: 1px solid var(--primary-color);
 
                 &:disabled{
                     border-color: var(--secondary-color);
