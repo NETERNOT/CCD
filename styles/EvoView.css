@@ -34,6 +34,7 @@
             width: 100%;
             display: flex;
             flex-wrap: nowrap;
+            align-items: flex-start;
             gap: 1rem;
 
             &.finalized>canvas:not(:last-child) {
@@ -53,7 +54,7 @@
                     justify-content: center;
 
                     &>p {
-                        font-size: 7.5cqw;
+                        font-size: 6cqw;
 
                     }
                 }

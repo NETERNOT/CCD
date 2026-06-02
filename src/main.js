@@ -55,10 +55,6 @@ uniqueLetters.forEach((char) => {
 // ── DOM refs ──────────────────────────────────────────────────
 
 const makeBtn = document.querySelector("#evolution-container > button");
-makeBtn.addEventListener("click", ()=>{
-  app.classList.remove("Evo-View");
-  app.classList.add("Cover-View");
-})
 
 // ── All-finalized check ───────────────────────────────────────
 
@@ -102,14 +98,5 @@ links.forEach((link) => {
 makeBtn.addEventListener("click", () => {
   setView("Cover-View");
 });
-
-  setView("Evo-View");
-
- 
-
-  
-
-// ── Render all rows ───────────────────────────────────────────
-
-rowRegistry.forEach((row, char) => createPopulationRow(char, row));
+  setView("Evo-View"); 
 }
