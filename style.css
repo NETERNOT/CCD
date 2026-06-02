@@ -9,6 +9,16 @@
     --background-color: #d7d7d7;
 }
 
+@font-face {
+    font-family: 'Grotesk Mono';
+    src: url('./assets/fonts/ESKlarheitGroteskMono-Rg.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Grotesk Mono Bold';
+    src: url('./assets/fonts/ESKlarheitGroteskMono-Bd.otf') format('opentype');
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -19,10 +29,71 @@
 body {
     background-color: var(--background-color);
     color: var(--primary-color);
-    font-family: 'Arial', sans-serif;
-    /* pedir a olga a fonte */
-
+    font-family: 'Grotesk Mono', monospace;
 }
+
+
+h2 {
+        font-size: 7.5cqw;
+}
+
+h3 {
+    font-family: 'Grotesk Mono Bold', monospace;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+h4 {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.35;
+}
+
+h5 {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+}
+
+h6 {
+    font-family: 'Grotesk Mono', monospace;
+    font-size: 0.6rem;
+    line-height: 1.35;
+}
+
+.button_txt {
+    background-color: var(--background-color);
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap:nowrap;
+    word-break: keep-all;
+    border: 1px solid var(--primary-color);
+    padding: 0.5rem 0.75rem;
+    text-transform: uppercase;
+    min-width: 8rem;
+    gap: 3rem;
+}
+
+.button_txt:hover {
+    background-color: var(--secondary-color);
+    cursor: pointer;
+}
+
+
 
 #app {
     display: flex;
@@ -77,7 +148,12 @@ body {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 8rem;
+        gap: 5.6rem;
+
+        &>input {
+            font-family: 'Grotesk Mono', monospace;
+            font-size: 0.6rem;
+        }
     }
 
     & #search-container {
@@ -92,13 +168,13 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
+        gap: 1.2rem;
 
         &>.parameter {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: .8rem;
+            gap: .4rem;
 
             &>.title {
                 font-weight: bold;
@@ -108,6 +184,7 @@ body {
                 display: flex;
                 flex-wrap: nowrap;
                 gap: .5rem;
+                align-items: center;
 
                 &>.rating-container {
                     display: flex;
@@ -116,10 +193,16 @@ body {
                     &>div {
                         width: 1rem;
                         height: 1rem;
-                        border: 1px solid var(--primary-color);
+                        border-top: 1px solid var(--primary-color);
+                        border-bottom: 1px solid var(--primary-color);
+                        border-left: 1px solid var(--primary-color);
+                
+                        &:last-of-type {
+                            border-right: 1px solid var(--primary-color);
+                        }
 
                         &.selected {
-                            background-color: var(--primary-color);
+                            background-color: var(--secondary-color);
                         }
                     }
                 }
@@ -135,7 +218,7 @@ body {
 
     display: flex;
     flex-direction: column;
-    gap: 8rem;
+    gap: 6rem;
     overflow: hidden;
     padding-bottom: 0;
 
@@ -145,12 +228,11 @@ body {
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
-        gap: 1rem;
+        gap: 1.5rem;
 
-        &>button {
-            background-color: transparent;
-            border: none;
-        }
+        &>a.active h4 {
+            text-decoration: underline;
+    }
     }
 
     &>main {

@@ -1,3 +1,31 @@
-/* css do about aqui */
-/* podes usar as variáveis que estão no style.css, sem ter de as voltar a meter aqui, nem importar */
-/* depois podes criar as variáveis para tamanhos de texto e tal também, podes fazer aqui e depois eu passo para o outro, ou fazer já lá se quiseres */
+#about {
+    min-height: 0;
+    overflow: scroll;
+    padding-bottom: 8rem;
+
+    &::-webkit-scrollbar {
+                    display: none;
+                }
+}
+
+#about article {
+    padding-bottom: 3rem;
+}
+
+#about section {
+    padding-bottom: 1.5rem;
+}
+
+.examples {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.examples img {
+    height: 9rem;
+    width: auto;
+    object-fit: contain;
+    border: 1px solid #000;
+}

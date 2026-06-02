@@ -1,3 +1,99 @@
-/* function (subgenre) 
-    return {mainColor: #xxxxxx, secondaryColor: #xxxxxx}    
-*/
+function hsbToHsl(h, s, b) {
+  s /= 100;
+  b /= 100;
+  const l = b * (1 - s / 2);
+  const sl = l === 0 || l === 1 ? 0 : (b - l) / Math.min(l, 1 - l);
+  return { h, s: sl * 100, l: l * 100 };
+}
+
+function hsbToCss(h, s, b) {
+  const { h: hh, s: ss, l } = hsbToHsl(h, s, b);
+  return `hsl(${Math.round(hh)}, ${Math.round(ss)}%, ${Math.round(l)}%)`;
+}
+
+function wrapHue(h) {
+  return ((h % 360) + 360) % 360;
+}
+
+function randomHueInRange(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+const PALETTE_GENERATORS = {
+  literary: () => {
+    const h1 = Math.random() * 360;
+    const h2 = wrapHue(h1 + 35);
+    return {
+      color1: hsbToCss(h1, 35, 80),
+      color2: hsbToCss(h2, 35, 60),
+    };
+  },
+
+  genre: () => {
+    const usePurpleRange = Math.random() < 0.5;
+    const h1 = usePurpleRange
+      ? randomHueInRange(260, 360)
+      : randomHueInRange(0, 25);
+    const h2 = wrapHue(h1 + 35);
+    return {
+      color1: hsbToCss(h1, 100, 70),
+      color2: hsbToCss(h2, 100, 70),
+    };
+  },
+
+  historical: () => {
+    const h1 = Math.random() * 360;
+    const h2 = wrapHue(h1 + 35);
+    const randomBrightness = 30 + Math.random() * 15; 
+    return {
+      color1: hsbToCss(h1, 25, randomBrightness),
+      color2: hsbToCss(h2, 20, 65),
+    };
+  },
+
+  crime: () => {
+    const h1 = randomHueInRange(130, 230);
+    const h2 = wrapHue(h1 + 20);
+    const randomBrightness = 25 + Math.random() * 15;
+    return {
+      color1: hsbToCss(h1, 65, randomBrightness),
+      color2: hsbToCss(h2, 55, 75),
+    };
+  },
+
+  experimental: () => {
+    const h1 = Math.random() * 360;
+    const h2 = wrapHue(h1 + 180);
+    return {
+      color1: hsbToCss(h1, 100, 60),
+      color2: hsbToCss(h2, 100, 60),
+    };
+  },
+};
+
+const GENRE_KEYS = [
+  "literary",
+  "genre",
+  "historical",
+  "crime",
+  "experimental",
+];
+
+export function applyPalette(genreIndex) {
+  const key = GENRE_KEYS[genreIndex] ?? "literary";
+  const { color1, color2 } = PALETTE_GENERATORS[key]();
+
+  const bg = document.getElementById("color_background");
+  const el = document.getElementById("color_elements");
+
+  if (bg) bg.style.backgroundColor = color1;
+  if (el) el.style.backgroundColor = color2;
+}
+
+export function getSelectedGenreIndex() {
+  const radios = document.querySelectorAll("#color-container input[type=radio]");
+  for (let i = 0; i < radios.length; i++) {
+    if (radios[i].checked) return i;
+  }
+  return 0;
+}

@@ -3,6 +3,14 @@ import { state } from "./state.js";
 import { createParameterItem, createPopulationRow } from "./ui/evoView.js";
 
 const app = document.getElementById("app");
+import paper from "paper";
+import { applyPalette, getSelectedGenreIndex } from "./bookcover/colors.js";
+
+init();
+
+function init() {
+
+
 
 // ── Test data (replace with state when APIs are ready) ────────
 
@@ -11,7 +19,7 @@ const TEST_PARAMS = {
   complexity: 0,
   openness: .4,
   darkness: 0.1,
-  extensiveness: 0.5,
+  extensiveness: 1,
   type: "vanilla",
 };
 
@@ -62,3 +70,46 @@ function checkAllFinalized() {
 // ── Render all rows ───────────────────────────────────────────
 
 rowRegistry.forEach((row, char) => createPopulationRow(char, row, TEST_PARAMS, checkAllFinalized));
+
+// ALTERAR ISTO DE SITIO ??
+const app = document.getElementById("app");
+const links = document.querySelectorAll("nav a");
+const randomizeBtn = document.querySelector("#color-container .button_txt");
+ 
+if (randomizeBtn) {
+  randomizeBtn.addEventListener("click", () => {
+    const idx = getSelectedGenreIndex();
+    applyPalette(idx);
+  });
+}
+
+function setView(view) {
+  app.classList.remove("Evo-View", "Abt-View", "Cover-View");
+  app.classList.add(view);
+}
+
+links.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    links.forEach((l) => l.classList.remove("active"));
+    link.classList.add("active");
+
+    setView(link.dataset.view);
+  });
+});
+
+makeBtn.addEventListener("click", () => {
+  setView("Cover-View");
+});
+
+  setView("Evo-View");
+
+ 
+
+  
+
+// ── Render all rows ───────────────────────────────────────────
+
+rowRegistry.forEach((row, char) => createPopulationRow(char, row));
+}

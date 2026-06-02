@@ -6,7 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="./style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>biblioglyph</title>
+  <title>NOVELGLYPHS</title>
 </head>
 
 <body>
@@ -16,29 +16,179 @@
       <div id="top"> <!-- top -->
         <img src="/Logo.svg"> <!--  logo  -->
         <input id="search-container" type="text" class="Evo-Only" placeholder="Type the title of the book...">
+        <div id="color-container" class="Cover-Only">
+        <label>
+      <input type="radio" name="option" checked>
+      Literary Fiction
+    </label>
+
+    <label>
+      <input type="radio" name="option">
+      Genre Fiction
+    </label>
+
+    <label>
+      <input type="radio" name="option">
+      Historical Fiction
+    </label>
+
+    <label>
+      <input type="radio" name="option">
+      Crime/Thriller
+    </label>
+
+    <label>
+      <input type="radio" name="option">
+      Experimental/Postmodern Fiction
+    </label>
+  <button class="button_txt">
+            <span>Randomize</span>
+        </button>
+  </div>
+    
       </div>
 
       <!-- stats container -->
       <div id="parameter-container" class="Evo-Only"></div>
+      
 
     </aside>
 
     <div id="right">
 
-      <nav> <button>Create</button> <button>Gallery</button> <button>About</button> </nav>
+      <nav> 
+        <!-- <a href="#gallery"><h4>Gallery</h4></a>  -->
+        <a href="#about" data-view="Abt-View"><h4>About</h4></a> 
+<a href="#create" data-view="Evo-View" class="active"><h4>Create</h4></a>  
+      </nav>
 
       <main>
         <div id="evolution-container" class="Evo-Only">
-          <p>Select one or more glyphs per letter to guide its evolution.</p>
+          <h6>Select one or more glyphs per letter to guide its evolution.</h6>
 
           <div class="population-map"></div>
 
-          <button disabled><span>Make</span><span>-></span></button>
+          <button class="button_txt" id="make-btn" disabled>
+            <span>Make</span><span>></span>
+          </button>
 
         </div>
 
+        <div id="bookcover" class="Cover-Only">
+          <div id="color_background"></div>
+          <div id="color_elements"></div>
+        </div>
+
         <div id="about" class="Abt-Only">
-          <!-- Escreve Aqui o HTML do about -->
+          <article>
+          <p>This project translates literary characteristics into visual typographic and chromatic elements. Each book generates a unique composition in which letterforms and colour reflect aspects of the narrative, emotional tone, structure, and literary&nbsp;genre.</p>
+          </article>
+
+          <article> 
+            <section>
+              <h3>Typographic Parameters</h3>
+              <p>The glyphs transform according to different textual&nbsp;dimensions:</p>
+            </section>
+            <section>
+              <h4>Plot density</h4>
+              <p>Simpler stories create cleaner structures, whereas complex narratives result in fragmented glyphs with multiple structural&nbsp;divisions.</p>
+              <div class="examples">
+                <div>
+                <img src="./assets/imgs/base_glyph.png" alt="plot density base glyph">
+                <h6>Base Glyph</h6>
+                </div>
+                <div>
+                <img src="./assets/imgs/complexity_01.png" alt="plot density example">
+                <h6>Simple Plot</h6>
+                </div>
+                <div>
+                <img src="./assets/imgs/complexity_02.png" alt="plot density example">
+                <h6>Dense Plot</h6>
+                </div>
+              </div>
+            </section>
+            <section>
+              <h4>Amount of Locations</h4>
+              <p>The number of spaces or locations occupied by the narrative influences the variety of rotation angles in the&nbsp;results.</p>
+              <div class="examples">
+                <div>
+                <img src="./assets/imgs/base_glyph.png" alt="amount of locations base glyph">
+                <h6>Base Glyph</h6>
+                </div>
+                <div>
+                <img src="./assets/imgs/openness_01.png" alt="amount of locations example">
+                <h6>Few Locations</h6>
+                </div>
+                <div>
+                <img src="./assets/imgs/openness_02.png" alt="amount of locations example">
+                <h6>Many Locations</h6>
+                </div>
+              </div>
+            </section>
+            <section>
+              <h4>Emotional tone</h4>
+              <p>Softer tones lead to rounded terminals, while intense emotional atmospheres generate sharper and more angular&nbsp;endings.</p>
+              <div class="examples">
+                <div>
+                <img src="./assets/imgs/base_glyph.png" alt="emotional tone base glyph">
+                <h6>Base Glyph</h6>
+                </div>
+                <div>
+                <img src="./assets/imgs/openness_01.png" alt="emotional tone example">
+                <h6>Soft Tone</h6>
+                </div>
+                <div>
+                <img src="./assets/imgs/openness_02.png" alt="emotional tone example">
+                <h6>Intense Tone</h6>
+                </div>
+              </div>
+            </section>
+            <section>
+              <h4>Text length</h4>
+              <p>Short texts correspond to lighter stroke weights, while longer narratives produce bolder typographic&nbsp;forms.</p>
+              <div class="examples">
+                <div>
+                <img src="./assets/imgs/base_glyph.png" alt="text length base glyph">
+                <h6>Base Glyph</h6>
+                </div>
+                <div>
+                <img src="./assets/imgs/extensiveness_01.png" alt="text length example">
+                <h6>Short Text</h6>
+                </div>
+                <div>
+                <img src="./assets/imgs/extensiveness_02.png" alt="text length example">
+                <h6>Long Text</h6>
+                </div>
+              </div>
+            </section>
+            </article>
+
+            <article> 
+            <section>
+              <h3>Chromatic System</h3>
+              <p>Each literary genre is associated with a specific colour&nbsp;logic:</p>
+            </section>
+            <section>
+              <h4>Literary Fiction</h4>
+              <p>Analogous colour palettes create continuity and visual&nbsp;balance.</p>
+            </section>
+            <section>
+              <h4>Genre Fiction</h4>
+              <p>Warm and vibrant colours communicate intensity and&nbsp;dynamism.</p>
+            </section>
+            <section>
+              <h4>Historical Fiction</h4>
+              <p>Desaturated tones evoke memory, archive, and&nbsp;temporality.</p>
+            </section>
+            <section>
+              <h4>Crime/Thriller</h4>
+              <p>High luminance contrast reinforces tension and&nbsp;suspense.</p>
+            </section>
+            <section>
+              <h4>Experimental/Postmodern Fiction</h4>
+              <p>Complementary colour schemes explore visual conflict and&nbsp;instability.</p>
+            </section>
+            </article>
         </div>
 
         <div id="cover-container" class="Cover-Only">
@@ -58,7 +208,7 @@
     </div>
 
   </div>
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/main.js" defer></script>
 </body>
 
 </html>
