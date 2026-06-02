@@ -79,6 +79,11 @@ const GENRE_KEYS = [
   "experimental",
 ];
 
+export function getPalette(genre){
+  const key = GENRE_KEYS[genre] ?? "literary";
+  return PALETTE_GENERATORS[key]();
+}
+
 export function applyPalette(genreIndex) {
   const key = GENRE_KEYS[genreIndex] ?? "literary";
   const { color1, color2 } = PALETTE_GENERATORS[key]();

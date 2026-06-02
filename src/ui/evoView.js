@@ -1,5 +1,6 @@
 import { setupCanvas, drawGlyph } from "./canvasHelpers.js";
 import { createNewPopulation, evolvePopulation } from "../typography/genome.js"
+import { state } from "../state.js";
 
 export function createParameterItem(key, value) {
   let text;
@@ -164,6 +165,7 @@ const populationMap = document.querySelector(".population-map");
   finalizeBtn.addEventListener("click", () => {
     if (row.finalized) {
       row.finalized = false;
+      state.finalizedMap.delete(char);
       container.classList.remove("finalized");
       row.finalizedScope.project.clear();
       row.canvases.forEach((c) => c.classList.remove("finalized"));
@@ -176,6 +178,7 @@ const populationMap = document.querySelector(".population-map");
     if (row.selected.length !== 1) return;
 
     const genome = row.population[row.selected[0]];
+    state.finalizedMap.set(char, genome);
     drawGlyph(row.finalizedScope, genome, params);
     row.finalized = true;
     finalizeIcon.src = "../cancel.svg";
