@@ -16,50 +16,55 @@
       <div id="top"> <!-- top -->
         <img src="/Logo.svg"> <!--  logo  -->
         <input id="search-container" type="text" class="Evo-Only" placeholder="Type the title of the book...">
+
+
         <div id="color-container" class="Cover-Only">
-        <label>
-      <input type="radio" name="option" checked>
-      Literary Fiction
-    </label>
+          <label>
+            <input type="radio" name="option" checked>
+            Literary Fiction
+          </label>
 
-    <label>
-      <input type="radio" name="option">
-      Genre Fiction
-    </label>
+          <label>
+            <input type="radio" name="option">
+            Genre Fiction
+          </label>
 
-    <label>
-      <input type="radio" name="option">
-      Historical Fiction
-    </label>
+          <label>
+            <input type="radio" name="option">
+            Historical Fiction
+          </label>
 
-    <label>
-      <input type="radio" name="option">
-      Crime/Thriller
-    </label>
+          <label>
+            <input type="radio" name="option">
+            Crime/Thriller
+          </label>
 
-    <label>
-      <input type="radio" name="option">
-      Experimental/Postmodern Fiction
-    </label>
-  <button class="button_txt">
+          <label>
+            <input type="radio" name="option">
+            Experimental/Postmodern Fiction
+          </label>
+          <button class="button_txt">
             <span>Randomize</span>
-        </button>
-  </div>
-    
-      </div>
+          </button>
+        </div>
 
+      </div>
       <!-- stats container -->
       <div id="parameter-container" class="Evo-Only"></div>
-      
+
 
     </aside>
 
     <div id="right">
 
-      <nav> 
-        <!-- <a href="#gallery"><h4>Gallery</h4></a>  -->
-        <a href="#about" data-view="Abt-View"><h4>About</h4></a> 
-<a href="#create" data-view="Evo-View" class="active"><h4>Create</h4></a>  
+      <nav>
+        <!-- <a href="#gallery" onclick="setView('Gal-View')"><h4>Gallery</h4></a>  -->
+        <a href="#about" onclick="setView('Abt-View')">
+          <h4>About</h4>
+        </a>
+        <a href="#create" class="active" onclick="setView('Evo-View')">
+          <h4>Create</h4>
+        </a>
       </nav>
 
       <main>
@@ -68,7 +73,7 @@
 
           <div class="population-map"></div>
 
-          <button class="button_txt" id="make-btn" disabled>
+          <button class="button_txt" id="make-btn" onclick="setView('Cover-View')" disabled>
             <span>Make</span><span>></span>
           </button>
 
@@ -81,89 +86,95 @@
 
         <div id="about" class="Abt-Only">
           <article>
-          <p>This project translates literary characteristics into visual typographic and chromatic elements. Each book generates a unique composition in which letterforms and colour reflect aspects of the narrative, emotional tone, structure, and literary&nbsp;genre.</p>
+            <p>This project translates literary characteristics into visual typographic and chromatic elements. Each
+              book generates a unique composition in which letterforms and colour reflect aspects of the narrative,
+              emotional tone, structure, and literary&nbsp;genre.</p>
           </article>
 
-          <article> 
+          <article>
             <section>
               <h3>Typographic Parameters</h3>
               <p>The glyphs transform according to different textual&nbsp;dimensions:</p>
             </section>
             <section>
               <h4>Plot density</h4>
-              <p>Simpler stories create cleaner structures, whereas complex narratives result in fragmented glyphs with multiple structural&nbsp;divisions.</p>
+              <p>Simpler stories create cleaner structures, whereas complex narratives result in fragmented glyphs with
+                multiple structural&nbsp;divisions.</p>
               <div class="examples">
                 <div>
-                <img src="./assets/imgs/base_glyph.png" alt="plot density base glyph">
-                <h6>Base Glyph</h6>
+                  <img src="./assets/imgs/base_glyph.png" alt="plot density base glyph">
+                  <h6>Base Glyph</h6>
                 </div>
                 <div>
-                <img src="./assets/imgs/complexity_01.png" alt="plot density example">
-                <h6>Simple Plot</h6>
+                  <img src="./assets/imgs/complexity_01.png" alt="plot density example">
+                  <h6>Simple Plot</h6>
                 </div>
                 <div>
-                <img src="./assets/imgs/complexity_02.png" alt="plot density example">
-                <h6>Dense Plot</h6>
+                  <img src="./assets/imgs/complexity_02.png" alt="plot density example">
+                  <h6>Dense Plot</h6>
                 </div>
               </div>
             </section>
             <section>
               <h4>Amount of Locations</h4>
-              <p>The number of spaces or locations occupied by the narrative influences the variety of rotation angles in the&nbsp;results.</p>
+              <p>The number of spaces or locations occupied by the narrative influences the variety of rotation angles
+                in the&nbsp;results.</p>
               <div class="examples">
                 <div>
-                <img src="./assets/imgs/base_glyph.png" alt="amount of locations base glyph">
-                <h6>Base Glyph</h6>
+                  <img src="./assets/imgs/base_glyph.png" alt="amount of locations base glyph">
+                  <h6>Base Glyph</h6>
                 </div>
                 <div>
-                <img src="./assets/imgs/openness_01.png" alt="amount of locations example">
-                <h6>Few Locations</h6>
+                  <img src="./assets/imgs/openness_01.png" alt="amount of locations example">
+                  <h6>Few Locations</h6>
                 </div>
                 <div>
-                <img src="./assets/imgs/openness_02.png" alt="amount of locations example">
-                <h6>Many Locations</h6>
+                  <img src="./assets/imgs/openness_02.png" alt="amount of locations example">
+                  <h6>Many Locations</h6>
                 </div>
               </div>
             </section>
             <section>
               <h4>Emotional tone</h4>
-              <p>Softer tones lead to rounded terminals, while intense emotional atmospheres generate sharper and more angular&nbsp;endings.</p>
+              <p>Softer tones lead to rounded terminals, while intense emotional atmospheres generate sharper and more
+                angular&nbsp;endings.</p>
               <div class="examples">
                 <div>
-                <img src="./assets/imgs/base_glyph.png" alt="emotional tone base glyph">
-                <h6>Base Glyph</h6>
+                  <img src="./assets/imgs/base_glyph.png" alt="emotional tone base glyph">
+                  <h6>Base Glyph</h6>
                 </div>
                 <div>
-                <img src="./assets/imgs/openness_01.png" alt="emotional tone example">
-                <h6>Soft Tone</h6>
+                  <img src="./assets/imgs/openness_01.png" alt="emotional tone example">
+                  <h6>Soft Tone</h6>
                 </div>
                 <div>
-                <img src="./assets/imgs/openness_02.png" alt="emotional tone example">
-                <h6>Intense Tone</h6>
+                  <img src="./assets/imgs/openness_02.png" alt="emotional tone example">
+                  <h6>Intense Tone</h6>
                 </div>
               </div>
             </section>
             <section>
               <h4>Text length</h4>
-              <p>Short texts correspond to lighter stroke weights, while longer narratives produce bolder typographic&nbsp;forms.</p>
+              <p>Short texts correspond to lighter stroke weights, while longer narratives produce bolder
+                typographic&nbsp;forms.</p>
               <div class="examples">
                 <div>
-                <img src="./assets/imgs/base_glyph.png" alt="text length base glyph">
-                <h6>Base Glyph</h6>
+                  <img src="./assets/imgs/base_glyph.png" alt="text length base glyph">
+                  <h6>Base Glyph</h6>
                 </div>
                 <div>
-                <img src="./assets/imgs/extensiveness_01.png" alt="text length example">
-                <h6>Short Text</h6>
+                  <img src="./assets/imgs/extensiveness_01.png" alt="text length example">
+                  <h6>Short Text</h6>
                 </div>
                 <div>
-                <img src="./assets/imgs/extensiveness_02.png" alt="text length example">
-                <h6>Long Text</h6>
+                  <img src="./assets/imgs/extensiveness_02.png" alt="text length example">
+                  <h6>Long Text</h6>
                 </div>
               </div>
             </section>
-            </article>
+          </article>
 
-            <article> 
+          <article>
             <section>
               <h3>Chromatic System</h3>
               <p>Each literary genre is associated with a specific colour&nbsp;logic:</p>
@@ -188,11 +199,11 @@
               <h4>Experimental/Postmodern Fiction</h4>
               <p>Complementary colour schemes explore visual conflict and&nbsp;instability.</p>
             </section>
-            </article>
+          </article>
         </div>
 
         <div id="cover-container" class="Cover-Only">
-          <button id="back">&#60; BACK TO GLYPHS</button>
+          <button id="back" class="button_txt" onclick="setView('Evo-View')">&#60; BACK TO GLYPHS</button>
           <div id="sections-container">
             <canvas></canvas>
             <canvas></canvas>
@@ -202,7 +213,7 @@
           </div>
         </div>
 
-        <button id="export" class="Cover-Only">SAVE PDF</button>
+        <button id="export" class="Cover-Only button_txt">SAVE PDF</button>
 
       </main>
     </div>

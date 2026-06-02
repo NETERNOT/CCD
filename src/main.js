@@ -74,19 +74,5 @@ function setView(view) {
   app.classList.remove("Evo-View", "Abt-View", "Cover-View");
   app.classList.add(view);
 }
-
-links.forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    links.forEach((l) => l.classList.remove("active"));
-    link.classList.add("active");
-
-    setView(link.dataset.view);
-  });
-});
-
-makeBtn.addEventListener("click", () => {
-  setView("Cover-View");
-});
+window.setView = setView;
 
