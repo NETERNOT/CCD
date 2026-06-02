@@ -1,0 +1,12 @@
+#color-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+label {
+    display: block;
+    font-family: 'Grotesk Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+}
