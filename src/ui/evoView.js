@@ -2,15 +2,33 @@ import { setupCanvas, drawGlyph } from "./canvasHelpers.js";
 import { createNewPopulation, evolvePopulation } from "../typography/genome.js"
 
 export function createParameterItem(key, value) {
+  let text;
+  switch (key){
+    case "complexity":
+      text = "Plot Density";
+      break;
+    case "openness":
+      text = "Amount of Locations";
+      break;
+    case "darkness":
+      text = "Emotional Tone";
+      break;
+    case "extensiveness":
+      text = "Text Length";
+    break;
+    default:
+      text = key;
+  }
+
   const idx = value === 1 ? 4 : Math.floor(value * 5);
 
   const container = document.createElement("div");
   container.classList.add("parameter");
-  const label = document.createElement("p");
+  const label = document.createElement("h5");
   label.classList.add("title");
-  label.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+  label.textContent = text;
   const container2 = document.createElement("div");
-  const low = document.createElement("span");
+  const low = document.createElement("h6");
   low.textContent = "Low";
   const container3 = document.createElement("div");
   container3.classList.add("rating-container");
@@ -20,7 +38,7 @@ export function createParameterItem(key, value) {
     if (i === idx) box.classList.add("selected");
     container3.appendChild(box);
   }
-  const high = document.createElement("span");
+  const high = document.createElement("h6");
   high.textContent = "High";
 
   container2.appendChild(low);

@@ -88,7 +88,7 @@ h6 {
     gap: 3rem;
 }
 
-.button_txt:hover {
+.button_txt:not(:disabled):hover {
     background-color: var(--secondary-color);
     cursor: pointer;
 }
