@@ -2,7 +2,7 @@
     min-height: 0;
     overflow: scroll;
     padding-bottom: 8rem;
-    
+
     &::-webkit-scrollbar {
                     display: none;
                 }
@@ -14,4 +14,18 @@
 
 #about section {
     padding-bottom: 1.5rem;
+}
+
+.examples {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.examples img {
+    width: 9vw;
+    height: auto;
+    object-fit: contain;
+    border: 1px solid #000;
 }

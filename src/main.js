@@ -16,7 +16,7 @@ const TEST_PARAMS = {
   complexity: 1,
   openness: 1,
   darkness: 0.1,
-  extensiveness: 0.5,
+  extensiveness: 1,
   type: "vanilla",
 };
 
@@ -56,7 +56,7 @@ parameterContainer.appendChild(
   createParameterItem("plot density", TEST_PARAMS.complexity),
 );
 parameterContainer.appendChild(
-  createParameterItem("openness", TEST_PARAMS.openness),
+  createParameterItem("amount of locations", TEST_PARAMS.openness),
 );
 parameterContainer.appendChild(
   createParameterItem("emotional tone", TEST_PARAMS.darkness),
