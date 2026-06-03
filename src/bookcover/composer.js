@@ -1,56 +1,93 @@
 import { getPalette } from "./colors";
 import { buildPolylines } from "../typography/renderer";
-import { setupCanvas } from "../ui/canvasHelpers";
 import paper from "paper";
 
-export function composeCover(finalGlyphs, params, title) {
+export function composeCover(canvases, scopes, finalGlyphs, params, title) {
   const { color1, color2 } = getPalette(params.type);
-
-  const canvases = document.querySelectorAll("#sections-container canvas");
-  let scopes = [];
-  canvases.forEach((canvas) => {
-    scopes.push(setupCanvas(canvas));
-    canvas.style.backgroundColor = color1;
-  });
-
-  //composeBack(finalGlyphs, scopes[1], color2);
-  //composeSpine(state.title, scopes[2], color2);
-
   const lines = title.split(" ");
-  composeFront(lines, finalGlyphs, scopes[3], color2, params);
-}
-
-function composeSpine(title, scope, color) {}
-
-function composeBack(glyphs, scope, color, params) {}
-
-function composeFront(lines, glyphs, scope, color, params) {
-  scope.activate();
-  scope.project.clear();
-
-  const longestLineLength = Math.max(...lines.map((line) => line.length));
-
   const polylines = [];
   lines.forEach((line) => {
     const letters = line.split("");
     const linePolys = letters.map((char) => {
-      const glyph = glyphs.get(char);
+      const glyph = finalGlyphs.get(char);
       console.log(glyph);
       return buildPolylines(glyph) || [];
     });
     polylines.push(linePolys);
   });
 
+  
+  canvases.forEach((canvas) => {
+    canvas.style.backgroundColor = color1;
+  });
+
+  composeBack(finalGlyphs, scopes[1], color2, params);
+  //composeSpine(state.title, scopes[2], color2);
+  composeFront(polylines, scopes[3], color2, params);
+}
+
+export function randomizeColors(canvas, scopes, genre){
+    const { color1, color2 } = getPalette(genre);
+
+    canvas.forEach(c => c.style.backgroundColor = color1)
+    scopes.forEach(s => s.project.activeLayer.children.forEach(p => p.strokeColor = color2))
+}
+
+function composeSpine(title, scope, color) {}
+
+function composeBack(glyphs, scope, color, params) {
+  scope.activate();
+  scope.project.clear();
+
+  const availableWidth = scope.view.size.width * 0.85;
+  const scale = availableWidth / 250;
+  const cx = scope.view.size.width / 2;
+  const cy = scope.view.size.height / 2;
+  const opacity = 1 / glyphs.size * 3;
+
+  const strokeWidth = 9/117.5 * availableWidth * params.extensiveness + 1/117.5 * availableWidth;
+
+  [...glyphs.values()].forEach((glyph) => {
+    const glyphPolylines = buildPolylines(glyph);
+
+    glyphPolylines.forEach((poly) => {
+      if (poly.length < 2) return;
+
+      const path = new scope.Path({
+        strokeColor: color,
+        strokeWidth: strokeWidth,
+        strokeCap: "round",
+        strokeJoin: "round",
+        opacity: opacity,
+      });
+
+      poly.forEach((pt) => {
+        path.add(new scope.Point(cx + pt.x * scale, cy + pt.y * scale));
+      });
+    });
+  });
+
+  scope.view.update();
+}
+
+function composeFront(polylines, scope, color, params) {
+  scope.activate();
+  scope.project.clear();
+
+  const longestLineLength = Math.max(...polylines.map((line) => line.length));
+
   const availableWidth = scope.view.size.width * 0.95;
   const padding = (scope.view.size.width - availableWidth) / 2;
   const availabeHeight = scope.view.size.height - padding * 2;
 
   let letterSize = availableWidth / longestLineLength;
-  letterSize = Math.min(letterSize, availabeHeight / lines.length);
+  letterSize = Math.min(letterSize, availabeHeight / polylines.length);
+  const strokeWidth = 9/117.5 * letterSize * params.extensiveness + 1/50 * letterSize;
+
   let lineHeight = 0; /* scope.view.size.height * 0.02; */
   if (
-    availabeHeight - lines.length * letterSize <
-    (lines.length - 1) * lineHeight
+    availabeHeight - polylines.length * letterSize <
+    (polylines.length - 1) * lineHeight
   )
     lineHeight = 0;
 
@@ -73,7 +110,7 @@ function composeFront(lines, glyphs, scope, color, params) {
 
         const path = new scope.Path({
           strokeColor: color,
-          strokeWidth: params.extensiveness * 4.5 + .5,
+          strokeWidth: strokeWidth,
           strokeCap: "round",
           strokeJoin: "round",
         });

@@ -3,16 +3,17 @@ import { state } from "./state.js";
 import { createParameterItem, createPopulationRow } from "./ui/evoView.js";
 import paper from "paper";
 import { applyPalette, getSelectedGenreIndex } from "./bookcover/colors.js";
-import { composeCover } from "./bookcover/composer.js";
+import { composeCover, randomizeColors } from "./bookcover/composer.js";
+import { setupCanvas } from "./ui/canvasHelpers.js";
 
 const app = document.getElementById("app");
-const TEST_TITLE = "B5 ASDG98237 LAISHD IUAHS UIU";
+const TEST_TITLE = "O";
 const TEST_PARAMS = {
   complexity: 0,
   openness: 0.4,
   darkness: 0.1,
-  extensiveness: 0.5,
-  type: "crime",
+  extensiveness: 1,
+  type: "literary",
 };
 
 const parameterContainer = document.getElementById("parameter-container");
@@ -47,6 +48,22 @@ uniqueLetters.forEach((char) => {
 // ── DOM refs ──────────────────────────────────────────────────
 
 const makeBtn = document.querySelector("#evolution-container > button");
+const links = document.querySelectorAll("nav a");
+const randomizeBtn = document.querySelector("#color-container .button_txt");
+const coverInfo = document.querySelectorAll("#color-container h4");
+
+// ── Cover View ────────────────────────────────────────────────
+
+coverInfo[0].textContent = TEST_TITLE;
+coverInfo[1].textContent = TEST_PARAMS.type;
+
+const coverCanvases = document.querySelectorAll("#sections-container canvas");
+let coverScopes = [];
+  coverCanvases.forEach((canvas) => {
+    coverScopes.push(setupCanvas(canvas));
+});
+
+randomizeBtn.addEventListener("click", ()=>randomizeColors(coverCanvases, coverScopes, TEST_PARAMS.type))
 
 // ── All-finalized check ───────────────────────────────────────
 
@@ -54,9 +71,8 @@ function checkAllFinalized() {
   const allFinalized = [...rowRegistry.values()].every((row) => row.finalized);
   makeBtn.disabled = !allFinalized;
 
-  if (allFinalized) composeCover(state.finalizedMap, TEST_PARAMS, TEST_TITLE);
-  }
-
+  if (allFinalized) composeCover(coverCanvases, coverScopes, state.finalizedMap, TEST_PARAMS, TEST_TITLE);
+}
 
 // ── Render all rows ───────────────────────────────────────────
 
@@ -64,15 +80,8 @@ rowRegistry.forEach((row, char) =>
   createPopulationRow(char, row, TEST_PARAMS, checkAllFinalized),
 );
 
-const links = document.querySelectorAll("nav a");
-const randomizeBtn = document.querySelector("#color-container .button_txt");
 
-if (randomizeBtn) {
-  randomizeBtn.addEventListener("click", () => {
-    const idx = getSelectedGenreIndex();
-    applyPalette(idx);
-  });
-}
+// ── Navigation ────────────────────────────────────────────────
 
 function setView(view) {
   app.classList.remove("Evo-View", "Abt-View", "Cover-View");

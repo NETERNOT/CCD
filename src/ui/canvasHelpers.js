@@ -20,12 +20,14 @@ export function drawGlyph(scope, genome, params) {
   const cx = scope.view.size.width / 2;
   const cy = scope.view.size.height / 2;
   const scale = scope.view.size.height / 260; // max height:250, + some padding
+  const strokeWidth = 9/117.5 * scope.view.size.width * params.extensiveness + 1/117.5 * scope.view.size.width;
+
 
   polylines.forEach((poly) => {
     if (poly.length < 2) return;
     const path = new scope.Path({
       strokeColor: "#000",
-      strokeWidth: params.extensiveness * 9 + 1,
+      strokeWidth: strokeWidth,
       strokeCap: "round",
       strokeJoin: "round",
     });
