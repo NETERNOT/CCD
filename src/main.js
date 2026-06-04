@@ -7,13 +7,13 @@ import { composeCover, randomizeColors } from "./bookcover/composer.js";
 import { setupCanvas } from "./ui/canvasHelpers.js";
 
 const app = document.getElementById("app");
-const TEST_TITLE = "HARRY POTTER AND THE PHILOSOFERS STONE"; /* HARRY POTTER AND THE PHILOSOFERS STONE */
+const TEST_TITLE = "HARRY POTTER"; /* HARRY POTTER AND THE PHILOSOFERS STONE */
 const TEST_PARAMS = {
   complexity: 0.5,
   openness: 0.5,
   darkness: 0.1,
   extensiveness: 0.5,
-  type: "historical",
+  type: "historical", 
 };
 
 const parameterContainer = document.getElementById("parameter-container");
@@ -50,7 +50,7 @@ uniqueLetters.forEach((char) => {
 const makeBtn = document.querySelector("#evolution-container > button");
 const links = document.querySelectorAll("nav a");
 const randomizeBtn = document.querySelector("#color-container .button_txt");
-const coverInfo = document.querySelectorAll("#color-container h4");
+const coverInfo = document.querySelectorAll("#color-container p");
 
 // ── Cover View ────────────────────────────────────────────────
 
