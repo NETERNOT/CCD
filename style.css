@@ -11,12 +11,12 @@
 
 @font-face {
     font-family: 'Grotesk Mono';
-    src: url('./assets/fonts/ESKlarheitGroteskMono-Rg.otf') format('opentype');
+    src: url('./public/fonts/ESKlarheitGroteskMono-Rg.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Grotesk Mono Bold';
-    src: url('./assets/fonts/ESKlarheitGroteskMono-Bd.otf') format('opentype');
+    src: url('./public/fonts/ESKlarheitGroteskMono-Bd.otf') format('opentype');
 }
 
 * {

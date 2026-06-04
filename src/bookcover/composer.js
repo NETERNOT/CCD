@@ -1,6 +1,6 @@
 import { getPalette } from "./colors";
 import { buildPolylines } from "../typography/renderer";
-import fontUrl from "../../assets/fonts/ESKlarheitGroteskMono-Bd.otf?url";
+import fontUrl from "../../public/fonts/ESKlarheitGroteskMono-Bd.otf?url";
 import paper from "paper";
 import opentype from "opentype.js";
 
