@@ -1,10 +1,18 @@
 import paper from "paper";
 import { buildPolylines } from "../typography/renderer.js";
 
+export function setupCanvas(canvas, i) {
+  if (i === 1 || i === 3) {
+    canvas.width = 2000;
+    canvas.height = 3000;
+  } else if (i === 2) {
+    canvas.width = 650;
+    canvas.height = 6500;
+  } else {
+    canvas.width = 250;
+    canvas.height = 250;
+  }
 
-export function setupCanvas(canvas) {
-  canvas.width = 250;
-  canvas.height = 250;
   const scope = new paper.PaperScope();
   scope.setup(canvas);
   canvas.style.width = "";
@@ -20,8 +28,9 @@ export function drawGlyph(scope, genome, params) {
   const cx = scope.view.size.width / 2;
   const cy = scope.view.size.height / 2;
   const scale = scope.view.size.height / 260; // max height:250, + some padding
-  const strokeWidth = 9/117.5 * scope.view.size.width * params.extensiveness + 1/117.5 * scope.view.size.width;
-
+  const strokeWidth =
+    (9 / 117.5) * scope.view.size.width * params.extensiveness +
+    (1 / 117.5) * scope.view.size.width;
 
   polylines.forEach((poly) => {
     if (poly.length < 2) return;

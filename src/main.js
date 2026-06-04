@@ -7,13 +7,13 @@ import { composeCover, randomizeColors } from "./bookcover/composer.js";
 import { setupCanvas } from "./ui/canvasHelpers.js";
 
 const app = document.getElementById("app");
-const TEST_TITLE = "O";
+const TEST_TITLE = "HARRY POTTER AND THE PHILOSOFERS STONE"; /* HARRY POTTER AND THE PHILOSOFERS STONE */
 const TEST_PARAMS = {
-  complexity: 0,
-  openness: 0.4,
+  complexity: 0.5,
+  openness: 0.5,
   darkness: 0.1,
-  extensiveness: 1,
-  type: "literary",
+  extensiveness: 0.5,
+  type: "historical",
 };
 
 const parameterContainer = document.getElementById("parameter-container");
@@ -59,19 +59,30 @@ coverInfo[1].textContent = TEST_PARAMS.type;
 
 const coverCanvases = document.querySelectorAll("#sections-container canvas");
 let coverScopes = [];
-  coverCanvases.forEach((canvas) => {
-    coverScopes.push(setupCanvas(canvas));
+
+coverCanvases.forEach((canvas, i) => {
+    coverScopes.push(setupCanvas(canvas, i));
 });
 
-randomizeBtn.addEventListener("click", ()=>randomizeColors(coverCanvases, coverScopes, TEST_PARAMS.type))
+randomizeBtn.addEventListener("click", () =>
+  randomizeColors(coverCanvases, coverScopes, TEST_PARAMS.type),
+);
 
 // ── All-finalized check ───────────────────────────────────────
 
-function checkAllFinalized() {
+async function checkAllFinalized() {
   const allFinalized = [...rowRegistry.values()].every((row) => row.finalized);
   makeBtn.disabled = !allFinalized;
 
-  if (allFinalized) composeCover(coverCanvases, coverScopes, state.finalizedMap, TEST_PARAMS, TEST_TITLE);
+  if (allFinalized) {
+    await composeCover(
+      coverCanvases,
+      coverScopes,
+      state.finalizedMap,
+      TEST_PARAMS,
+      TEST_TITLE,
+    );
+  }
 }
 
 // ── Render all rows ───────────────────────────────────────────
@@ -79,7 +90,6 @@ function checkAllFinalized() {
 rowRegistry.forEach((row, char) =>
   createPopulationRow(char, row, TEST_PARAMS, checkAllFinalized),
 );
-
 
 // ── Navigation ────────────────────────────────────────────────
 
