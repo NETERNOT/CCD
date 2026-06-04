@@ -13,13 +13,13 @@
 }
 
 #about section {
-    padding-bottom: 1.5rem;
+    padding-bottom: 2rem;
 }
 
 .examples {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: 1.5rem;
     margin-top: 1rem;
 }
 
@@ -28,4 +28,142 @@
     width: auto;
     object-fit: contain;
     border: 1px solid #000;
+    padding-bottom: 0.5rem;
+}
+
+.colour-sample {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding-bottom: 0.5rem;
+
+    & > div {
+        width: 4rem;
+        height: 4rem;
+    }
+}
+
+#literary-combination1-colour1 {
+    background-color: #80B4DF;
+}
+
+#literary-combination1-colour2 {
+    background-color: #6D6CA8;
+}
+
+#literary-combination2-colour1 {
+    background-color: #E989BE;
+}
+
+#literary-combination2-colour2 {
+    background-color: #B1696D;
+}
+
+#literary-combination3-colour1 {
+    background-color: #E4DB8D;
+}
+
+#literary-combination3-colour2 {
+    background-color: #84A96C;
+}
+
+
+#genre-combination1-colour1 {
+    background-color: #FF13CD;
+}
+
+#genre-combination1-colour2 {
+    background-color: #7B21F0;
+}
+
+#genre-combination2-colour1 {
+    background-color: #FF8D27;
+}
+
+#genre-combination2-colour2 {
+    background-color: #FF0022;
+}
+
+#genre-combination3-colour1 {
+    background-color: #FF0041;
+}
+
+#genre-combination3-colour2 {
+    background-color: #FF11C8;
+}
+
+
+#historical-combination1-colour1 {
+    background-color: #453647;
+}
+
+#historical-combination1-colour2 {
+    background-color: #A07B91;
+}
+
+#historical-combination2-colour1 {
+    background-color: #454435;
+}
+
+#historical-combination2-colour2 {
+    background-color: #859D7C;
+}
+
+#historical-combination3-colour1 {
+    background-color: #463534;
+}
+
+#historical-combination3-colour2 {
+    background-color: #9F907C;
+}
+
+
+
+#crime-combination1-colour1 {
+    background-color: #08180A;
+}
+
+#crime-combination1-colour2 {
+    background-color: #00E138;
+}
+
+#crime-combination2-colour1 {
+    background-color: #0A0A18;
+}
+
+#crime-combination2-colour2 {
+    background-color: #5220DE;
+}
+
+#crime-combination3-colour1 {
+    background-color: #051917;
+}
+
+#crime-combination3-colour2 {
+    background-color: #00ADDF;
+}
+
+
+#experimental-combination1-colour1 {
+    background-color: #C4601D;
+}
+
+#experimental-combination1-colour2 {
+    background-color: #004FB7;
+}
+
+#experimental-combination2-colour1 {
+    background-color: #2B1BB7;
+}
+
+#experimental-combination2-colour2 {
+    background-color: #73B91D;
+}
+
+#experimental-combination3-colour1 {
+    background-color: #00B93A;
+}
+
+#experimental-combination3-colour2 {
+    background-color: #C5007A;
 }
