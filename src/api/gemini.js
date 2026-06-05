@@ -16,23 +16,14 @@
  */
 
 const SYSTEM_PROMPT = `
-You are a literary analyst.
-
-Given a book title, description, and subject tags, estimate the following narrative parameters.
-
-All numeric values must be floats between 0.0 and 1.0.
-type must be  "literary" || "historical" || "crime" || "experimental" || "genre" (default)
-
-JSON schema:
-
+You are a literary analyst. Analyze book data. Return JSON only:
 {
-  "openness": 0.0,
-  "complexity": 0.0,
-  "darkness": 0.0,
-  "extensiveness": 0.0,
-  "type": "",
-}
-`.trim();
+  "openness": float(0-1),
+  "complexity": float(0-1),
+  "darkness": float(0-1),
+  "extensiveness": float(0-1),
+  "type": "literary"|"historical"|"crime"|"experimental"|"genre"(default)
+}`.trim();
 
 /**
  * Extract narrative parameters for a book.
@@ -40,27 +31,19 @@ JSON schema:
  * @returns {Promise<BookParams>}
  */
 export async function extractBookParams(book) {
+  const shorterDescription = book.description
+    ? book.description.slice(0, 800)
+    : "(none)";
+
   const userPrompt = `
-Title: ${book.title}
-
-Description:
-${book.description || "(none)"}
-
-Subjects:
-${book.subjects?.join(", ") || "(none)"}
-
-Places:
-${book.subject_places?.join(", ") || "(none)"}
-
-Time Periods:
-${book.subject_times?.join(", ") || "(none)"}
-
-Page Count:
-${book.number_of_pages ?? "(unknown)"}
-
-First Published:
-${book.first_publish_date ?? "(unknown)"}
-`
+T:${book.title}
+D:${shorterDescription}
+S:${book.subjects?.slice(0, 5).join(", ") || "(none)"}
+P:${book.subject_places?.join(", ") || "(none)"}
+T:${book.subject_times?.slice(0, 3).join(", ") || "(none)"}
+Pages:${book.number_of_pages ?? "(unknown)"}
+Year:${book.first_publish_date ?? "(unknown)"}
+`;
 
   const response = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`,
@@ -91,7 +74,33 @@ ${book.first_publish_date ?? "(unknown)"}
 
         generationConfig: {
           responseMimeType: "application/json",
-          temperature: 0.3,
+          temperature: 0.2, // Um pouco mais baixo ajuda a ser mais direto
+          responseSchema: {
+            type: "OBJECT",
+            properties: {
+              openness: { type: "NUMBER" },
+              complexity: { type: "NUMBER" },
+              darkness: { type: "NUMBER" },
+              extensiveness: { type: "NUMBER" },
+              type: {
+                type: "STRING",
+                enum: [
+                  "literary",
+                  "historical",
+                  "crime",
+                  "experimental",
+                  "genre",
+                ],
+              },
+            },
+            required: [
+              "openness",
+              "complexity",
+              "darkness",
+              "extensiveness",
+              "type",
+            ],
+          },
         },
       }),
     },
@@ -104,8 +113,7 @@ ${book.first_publish_date ?? "(unknown)"}
 
   const data = await response.json();
 
-  const raw =
-    data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+  const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
 
   let params;
 
@@ -116,21 +124,11 @@ ${book.first_publish_date ?? "(unknown)"}
     throw err;
   }
 
-  const numericKeys = [
-    "openness",
-    "complexity",
-    "darkness",
-    "extensiveness"
-  ];
+  const numericKeys = ["openness", "complexity", "darkness", "extensiveness"];
 
   for (const key of numericKeys) {
-    params[key] = Math.min(
-      1,
-      Math.max(0, Number(params[key]) || 0),
-    );
+    params[key] = Math.min(1, Math.max(0, Number(params[key]) || 0));
   }
-
-
 
   return params;
 }
