@@ -126,6 +126,7 @@
 #search-container {
     width: 100%;
     border: none;
+    position: relative;
 
     display: flex;
     flex-direction: column;
@@ -151,6 +152,7 @@
 
         &>#dropdown {
             position: absolute;
+            z-index: 10;
             top: 110%;
             width: 100%;
             display: none;
@@ -173,5 +175,18 @@
 
     &>button {
         width: 100%;
+    }
+
+    &>#status-message{
+        position: absolute;
+        top: 95%;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+
+        &.active{
+            top: 110%;
+            opacity: 1;
+        }
     }
 }
