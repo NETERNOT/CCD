@@ -60,12 +60,18 @@ async function composeSpine(title, scope, color) {
   const finalSize = 200;
   const drawnPaths = [];
   let path = null;
+  let compoundPath = new scope.CompoundPath({
+    fillColor: color,
+    strokeColor: null,
+    fillRule: 'evenodd',
+  });
+
   const finalPath = font.getPath(title, 0, finalSize, finalSize);
 
   for (const cmd of finalPath.commands) {
     if (cmd.type === "M") {
-      path = new scope.Path({ fillColor: color, strokeColor: null });
-      drawnPaths.push(path);
+      path = new scope.Path();
+      compoundPath.addChild(path);
       path.moveTo(new scope.Point(cmd.x, cmd.y));
     } else if (cmd.type === "L") {
       path.lineTo(new scope.Point(cmd.x, cmd.y));
@@ -85,11 +91,8 @@ async function composeSpine(title, scope, color) {
     }
   }
 
-  const group = new scope.Group(drawnPaths);
-  console.log("group bounds:", group.bounds);
-
-  group.position = new scope.Point(
-    W / 2 - H / 2 + group.bounds.width / 2 + padding,
+  compoundPath.position = new scope.Point(
+    W / 2 - H / 2 + compoundPath.bounds.width / 2 + padding,
     H / 2,
   );
 
