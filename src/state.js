@@ -1,3 +1,4 @@
+/* state.js */
 export const state = {
   book: null,
   params: null,        // { complexity, openness, darkness, extensiveness, type }
@@ -23,7 +24,7 @@ export function resetState(){
 
 export function setBook(book){
     state.book = book;
-    state.title = book.title.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    state.title = book.title.toUpperCase().replace(/[^A-Z0-9 ]/g, "");
 }
 
 export function setParams(params){

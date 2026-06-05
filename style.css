@@ -23,6 +23,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Grotesk Mono', monospace;
 
 }
 
@@ -149,19 +150,8 @@ h6 {
         flex-direction: column;
         align-items: flex-start;
         gap: 5.6rem;
-
-        &>input {
-            font-family: 'Grotesk Mono', monospace;
-            font-size: 0.6rem;
-        }
     }
 
-    & #search-container {
-        width: 100%;
-        background-color: transparent;
-        border: 1px solid var(--primary-color);
-        padding: .5rem;
-    }
 
     & #parameter-container {
         width: 100%;

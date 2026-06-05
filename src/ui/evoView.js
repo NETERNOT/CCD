@@ -1,24 +1,16 @@
 import { setupCanvas, drawGlyph } from "./canvasHelpers.js";
-import { createNewPopulation, evolvePopulation } from "../typography/genome.js"
+import { createNewPopulation, evolvePopulation } from "../typography/genome.js";
 import { state } from "../state.js";
+import { searchBooks } from "../api/openLibrary.js";
 
 export function createParameterItem(key, value) {
   let text;
-  switch (key){
-    case "complexity":
-      text = "Plot Density";
-      break;
-    case "openness":
-      text = "Amount of Locations";
-      break;
-    case "darkness":
-      text = "Emotional Tone";
-      break;
-    case "extensiveness":
-      text = "Text Length";
-    break;
-    default:
-      text = key;
+  switch (key) {
+    case "complexity": text = "Plot Density"; break;
+    case "openness":   text = "Amount of Locations"; break;
+    case "darkness":   text = "Emotional Tone"; break;
+    case "extensiveness": text = "Text Length"; break;
+    default: text = key;
   }
 
   const idx = value === 1 ? 4 : Math.floor(value * 5);
@@ -51,21 +43,38 @@ export function createParameterItem(key, value) {
   return container;
 }
 
+export async function queryAndPopulate(query, dropdown, onSelect) {
+  const results = await searchBooks(query);
+  dropdown.innerHTML = "";
+
+  if (!results.length) {
+    const empty = document.createElement("div");
+    empty.classList.add("dropdown-item", "no-results");
+    empty.textContent = "No results";
+    dropdown.appendChild(empty);
+    return;
+  }
+
+  results.forEach((book) => {
+    const item = document.createElement("div");
+    item.classList.add("dropdown-item");
+    item.textContent = `${book.title} — ${book.author}`;
+    item.addEventListener("click", () => onSelect(book));
+    dropdown.appendChild(item);
+  });
+}
+
 export function createPopulationRow(char, row, params, checkAllFinalized) {
-const populationMap = document.querySelector(".population-map");
+  const populationMap = document.querySelector(".population-map");
   const container = document.createElement("div");
   container.classList.add("population-container");
 
-  // ── Letter label ──
   const label = document.createElement("div");
   const charLabel = document.createElement("p");
   charLabel.textContent = char;
   label.appendChild(charLabel);
   container.appendChild(label);
 
-  // ── Individual canvases ──
-  // Append all canvases to DOM first, then setup + draw
-  // so getBoundingClientRect() returns the correct size
   const canvasEls = [];
   for (let i = 0; i < row.population.length; i++) {
     const canvas = document.createElement("canvas");
@@ -74,18 +83,15 @@ const populationMap = document.querySelector(".population-map");
     row.canvases.push(canvas);
   }
 
-  // Controls (appended before finalized canvas, matching HTML structure)
   const controls = document.createElement("div");
   controls.classList.add("population-controls");
 
   const evolveBtn = document.createElement("button");
   const evolveIcon = document.createElement("img");
   const evolveTT = document.createElement("span");
-
   evolveIcon.src = "../rotate.svg";
   evolveTT.classList.add("tooltip");
-  evolveTT.textContent =
-    "Click to generate new set of designs. Selected designs will guide the direction of evolution.";
+  evolveTT.textContent = "Click to generate new set of designs. Selected designs will guide the direction of evolution.";
   evolveBtn.appendChild(evolveIcon);
   evolveBtn.appendChild(evolveTT);
 
@@ -94,25 +100,22 @@ const populationMap = document.querySelector(".population-map");
   const finalizeTT = document.createElement("span");
   finalizeIcon.src = "../done.svg";
   finalizeTT.classList.add("tooltip");
-  finalizeTT.textContent = "Once you are satisfied with the outcome, select your preferred option to create the final version."
+  finalizeTT.textContent = "Once you are satisfied with the outcome, select your preferred option to create the final version.";
   finalizeBtn.appendChild(finalizeIcon);
-  finalizeBtn.appendChild(finalizeTT)
+  finalizeBtn.appendChild(finalizeTT);
   finalizeBtn.disabled = true;
 
   controls.appendChild(evolveBtn);
   controls.appendChild(finalizeBtn);
   container.appendChild(controls);
 
-  // ── Finalized canvas ──
   const finalizedCanvas = document.createElement("canvas");
   finalizedCanvas.classList.add("finalized-glyph");
   container.appendChild(finalizedCanvas);
   row.finalizedCanvas = finalizedCanvas;
 
-  // ── Append row to DOM before reading sizes ──
   populationMap.appendChild(container);
 
-  // ── Now safe to setup canvases (they're in DOM, sizes are correct) ──
   canvasEls.forEach((canvas, i) => {
     const scope = setupCanvas(canvas);
     row.scopes.push(scope);
@@ -120,7 +123,6 @@ const populationMap = document.querySelector(".population-map");
 
     canvas.addEventListener("click", () => {
       if (row.finalized) return;
-
       const pos = row.selected.indexOf(i);
       if (pos === -1) {
         row.selected.push(i);
@@ -133,35 +135,21 @@ const populationMap = document.querySelector(".population-map");
     });
   });
 
-  // ── Setup finalized canvas after appending to DOM ──
   row.finalizedScope = setupCanvas(finalizedCanvas);
 
-  // ── Evolve button ──
   evolveBtn.addEventListener("click", () => {
     const selectedGenomes = row.selected.map((idx) => row.population[idx]);
-
     if (selectedGenomes.length > 0) {
-      row.population = evolvePopulation(
-        row.population,
-        selectedGenomes,
-        params,
-      );
+      row.population = evolvePopulation(row.population, selectedGenomes, params);
     } else {
       row.population = createNewPopulation(char, params);
     }
-
-    // Clear selection
     row.selected = [];
     row.canvases.forEach((c) => c.classList.remove("selected"));
     finalizeBtn.disabled = true;
-
-    // Redraw all individuals
-    row.population.forEach((genome, i) => {
-      drawGlyph(row.scopes[i], genome, params);
-    });
+    row.population.forEach((genome, i) => drawGlyph(row.scopes[i], genome, params));
   });
 
-  // ── Finalize button ──
   finalizeBtn.addEventListener("click", () => {
     if (row.finalized) {
       row.finalized = false;
@@ -184,12 +172,8 @@ const populationMap = document.querySelector(".population-map");
     finalizeIcon.src = "../cancel.svg";
     evolveBtn.disabled = true;
     container.classList.add("finalized");
-
-    row.selected.forEach((idx) => {
-      row.canvases[idx].classList.toggle("selected", false);
-    });
+    row.selected.forEach((idx) => row.canvases[idx].classList.toggle("selected", false));
     row.selected = [];
-
     checkAllFinalized();
   });
 }
