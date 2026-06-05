@@ -33,9 +33,6 @@
 
     &>button {
         width: auto;
-        padding: .5rem;
-        border: 1px solid var(--primary-color);
-        background-color: transparent;
         align-self: flex-start;
     }
 

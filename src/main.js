@@ -176,5 +176,21 @@ async function checkAllFinalized() {
 function setView(view) {
   app.classList.remove("Evo-View", "Abt-View", "Cover-View");
   app.classList.add(view);
+
+  document.querySelectorAll("nav a").forEach((link) => {
+    link.classList.remove("active");
+  });
+
+  const viewToLink = {
+    "Evo-View": "#create",
+    "Abt-View": "#about",
+    "Cover-View": "#create",
+  };
+
+  const selector = viewToLink[view];
+  if (selector) {
+    const activeLink = document.querySelector(`nav a[href="${selector}"]`);
+    if (activeLink) activeLink.classList.add("active");
+  }
 }
 window.setView = setView;
