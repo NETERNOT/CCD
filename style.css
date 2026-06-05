@@ -245,3 +245,23 @@ h6 {
 
     }
 }
+
+
+@media screen and (max-width: 900px) {
+
+  body > * {
+    display: none !important;
+  }
+
+  body::before {
+    content: "This tool can only be accessed through the desktop version.";
+    display: block;
+    padding-top: 2vw;
+    text-align: center;
+    font-family: "Grotesk Mono";
+    font-size: 4.5vw;
+    color: var(--content);
+    line-height: 120%;
+    text-transform: uppercase;
+  }
+}
