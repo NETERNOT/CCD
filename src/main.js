@@ -1,8 +1,15 @@
+/* main.js */
+
 import { createNewPopulation } from "./typography/genome.js";
 import { state, setBook, resetState } from "./state.js";
-import { createParameterItem, createPopulationRow, queryAndPopulate } from "./ui/evoView.js";
+import {
+  createParameterItem,
+  createPopulationRow,
+  queryAndPopulate,
+} from "./ui/evoView.js";
 import { composeCover, randomizeColors } from "./bookcover/composer.js";
 import { setupCanvas } from "./ui/canvasHelpers.js";
+import { extractBookParams } from "./api/gemini.js";
 
 // ── DOM refs ──────────────────────────────────────────────────
 
@@ -23,7 +30,7 @@ const coverScopes = [];
 coverCanvases.forEach((canvas, i) => coverScopes.push(setupCanvas(canvas, i)));
 
 randomizeBtn.addEventListener("click", () =>
-  randomizeColors(coverCanvases, coverScopes, state.params?.type)
+  randomizeColors(coverCanvases, coverScopes, state.params?.type),
 );
 
 // ── Search ────────────────────────────────────────────────────
@@ -42,7 +49,10 @@ searchInput.addEventListener("input", () => {
   clearTimeout(debounceTimer);
   stagedBook = null;
   const query = searchInput.value.trim();
-  if (!query) { dropdown.classList.remove("active"); return; }
+  if (!query) {
+    dropdown.classList.remove("active");
+    return;
+  }
   debounceTimer = setTimeout(() => {
     queryAndPopulate(query, dropdown, onSelect);
     dropdown.classList.add("active");
@@ -51,7 +61,7 @@ searchInput.addEventListener("input", () => {
 
 // ── Confirm ───────────────────────────────────────────────────
 
-confirmBtn.addEventListener("click", () => {
+confirmBtn.addEventListener("click", async () => {
   if (stagedBook === null) return;
   resetState();
   setBook(stagedBook);
@@ -64,6 +74,12 @@ confirmBtn.addEventListener("click", () => {
     type: "historical",
   };
 
+  try {
+    state.params = await extractBookParams(stagedBook);
+  } catch (error) {
+    console.error("Error extracting book parameters:", error);
+    return;
+  }
   // Clear previous evolution
   rowRegistry = new Map();
   populationMap.innerHTML = "";
@@ -92,7 +108,7 @@ confirmBtn.addEventListener("click", () => {
   });
 
   rowRegistry.forEach((row, char) =>
-    createPopulationRow(char, row, state.params, checkAllFinalized)
+    createPopulationRow(char, row, state.params, checkAllFinalized),
   );
 
   // Update cover info
