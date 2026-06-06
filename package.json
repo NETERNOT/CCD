@@ -12,7 +12,9 @@
     "vite": "^8.0.10"
   },
   "dependencies": {
+    "jspdf": "^4.2.1",
     "opentype.js": "^2.0.0",
-    "paper": "^0.12.18"
+    "paper": "^0.12.18",
+    "svg2pdf.js": "^2.7.0"
   }
 }

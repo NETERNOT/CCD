@@ -10,6 +10,8 @@ import {
 import { composeCover, randomizeColors } from "./bookcover/composer.js";
 import { setupCanvas } from "./ui/canvasHelpers.js";
 import { extractBookParams } from "./api/gemini.js";
+import { jsPDF } from "jspdf";
+import { svg2pdf } from "svg2pdf.js";
 
 // ── DOM refs ──────────────────────────────────────────────────
 
@@ -24,16 +26,13 @@ const parameterContainer = document.getElementById("parameter-container");
 const populationMap = document.querySelector(".population-map");
 const evolutionMessage = document.getElementById("evolution-message");
 const statusMsg = document.getElementById("status-message");
+const exportBtn = document.getElementById("export");
 
 // ── Cover canvases (set up once) ──────────────────────────────
 
 const coverCanvases = document.querySelectorAll("#sections-container canvas");
 const coverScopes = [];
 coverCanvases.forEach((canvas, i) => coverScopes.push(setupCanvas(canvas, i)));
-
-randomizeBtn.addEventListener("click", () =>
-  randomizeColors(coverCanvases, coverScopes, state.params?.type),
-);
 
 // ── Search ────────────────────────────────────────────────────
 
@@ -153,6 +152,43 @@ confirmBtn.addEventListener("click", async () => {
   coverInfo[0].textContent = state.book.title;
   coverInfo[1].textContent = state.params.type;
 });
+
+// ── Cover View Actions ────────────────────────────────────────
+
+randomizeBtn.addEventListener("click", () =>
+  randomizeColors(coverCanvases, coverScopes, state.params?.type),
+);
+
+exportBtn.addEventListener("click", async () => {
+  const canvasSvgs = coverScopes.map((scp) => scp.project.exportSVG())
+
+  const pdf = new jsPDF({
+    orientation: "landscape",
+    unit: "mm",
+    format: [441, 210]
+  })
+
+  // Get background color once and fill the whole page
+  const bg = getComputedStyle(coverCanvases[0]).backgroundColor
+  pdf.setFillColor(bg)
+  pdf.rect(0, 0, 441, 210, "F")
+
+  const sizes = [
+    { x: 0,   w: 70  },
+    { x: 70,  w: 140 },
+    { x: 210, w: 21  },
+    { x: 231, w: 140 },
+    { x: 371, w: 70  },
+  ]
+
+  for (let i = 0; i < canvasSvgs.length; i++) {
+    await svg2pdf(canvasSvgs[i], pdf, { x: sizes[i].x, y: 0, width: sizes[i].w, height: 210 })
+  }
+
+  pdf.save(`${state.book.title}-cover.pdf`)
+})
+
+// Helper functions ─────────────────────────────────────────────
 
 // ── All-finalized check ───────────────────────────────────────
 
