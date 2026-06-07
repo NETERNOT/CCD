@@ -57,13 +57,20 @@ async function composeSpine(title, scope, color) {
   const buffer = await fetch(fontUrl).then((r) => r.arrayBuffer());
   const font = opentype.parse(buffer);
 
-  const finalSize = 200;
+  let finalSize = 200;
+  const testPath = font.getPath(title, 0, finalSize, finalSize);
+  const bb = testPath.getBoundingBox();
+
+  if (bb.x2 - bb.x1 > H - padding * 2) {
+    finalSize *= (H - padding * 2) / (bb.x2 - bb.x1);
+  }
+
   const drawnPaths = [];
   let path = null;
   let compoundPath = new scope.CompoundPath({
     fillColor: color,
     strokeColor: null,
-    fillRule: 'evenodd',
+    fillRule: "evenodd",
   });
 
   const finalPath = font.getPath(title, 0, finalSize, finalSize);
