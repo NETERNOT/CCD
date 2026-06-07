@@ -24,8 +24,8 @@ const PALETTE_GENERATORS = {
     const h1 = Math.random() * 360;
     const h2 = wrapHue(h1 + 35);
     return {
-      color1: hsbToCss(h1, 35, 80),
-      color2: hsbToCss(h2, 35, 60),
+      color1: hsbToCss(h1, 35, 90),
+      color2: hsbToCss(h2, 35, 70),
     };
   },
 
@@ -36,8 +36,8 @@ genre: () => {
       : randomHueInRange(0, 25);
     const h2 = wrapHue(h1 + 35);
     return {
-      color1: hsbToCss(h2, 100, 70),
-      color2: hsbToCss(h1, 100, 70),
+      color1: hsbToCss(h2, 100, 95),
+      color2: hsbToCss(h1, 100, 95),
     };
   },
 
@@ -64,8 +64,8 @@ genre: () => {
     const h1 = Math.random() * 360;
     const h2 = wrapHue(h1 + 180);
     return {
-      color1: hsbToCss(h1, 100, 60),
-      color2: hsbToCss(h2, 100, 60),
+      color1: hsbToCss(h1, 100, 75),
+      color2: hsbToCss(h2, 100, 75),
     };
   },
 };
