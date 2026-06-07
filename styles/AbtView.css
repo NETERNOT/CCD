@@ -1,7 +1,6 @@
 #about {
     min-height: 0;
     overflow: scroll;
-    padding-bottom: 8rem;
 
     &::-webkit-scrollbar {
                     display: none;
