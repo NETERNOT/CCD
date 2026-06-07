@@ -10,7 +10,6 @@
  * @typedef {Object} BookParams
  * @property {number} openness
  * @property {number} complexity
- * @property {number} darkness
  * @property {number} extensiveness
  * @property {string} genre
  */
@@ -21,7 +20,7 @@ You are a literary analyst. Analyze book data. Return JSON only:
   "openness": float(0-1), //amount of locations
   "complexity": float(0-1),  //plot density, character count
   "extensiveness": float(0-1), //text length
-  "genre": "literary"|"historical"|"crime"|"experimental"|"genre"(default)
+  "genre": "literary"|"historical"|"crime"|"experimental"|"romance"(default)
 }`.trim();
 
 /**
@@ -87,7 +86,7 @@ Year:${book.first_publish_date ?? "(unknown)"}
                   "historical",
                   "crime",
                   "experimental",
-                  "genre",
+                  "romance",
                 ],
               },
             },

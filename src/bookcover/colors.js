@@ -29,7 +29,7 @@ const PALETTE_GENERATORS = {
     };
   },
 
-genre: () => {
+romance: () => {
     const usePurpleRange = Math.random() < 0.5;
     const h1 = usePurpleRange
       ? randomHueInRange(260, 325)
@@ -72,14 +72,14 @@ genre: () => {
 
 const GENRE_KEYS = [
   "literary",
-  "genre",
+  "romance",
   "historical",
   "crime",
   "experimental",
 ];
 
 export function getPalette(genre){
-  const key = GENRE_KEYS.includes(genre) ? genre : "experimental";
+  const key = GENRE_KEYS.includes(genre) ? genre : "romance";
   return PALETTE_GENERATORS[key]();
 }
 
