@@ -1,3 +1,6 @@
+/* renderer.js */
+/* changes genotype points into canvas space for later transformation */
+
 function rotatePoints(points, angle) {
   const cx = points[0].x;
   const cy = points[0].y;

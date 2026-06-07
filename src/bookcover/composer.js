@@ -1,3 +1,6 @@
+/* composer.js */
+/* Gets final information from evolution, sets up and draws cover canvases before view is changed */
+
 import { getPalette } from "./colors";
 import { buildPolylines } from "../typography/renderer";
 import fontUrl from "../../assets/fonts/ESKlarheitGroteskMono-Bd.otf?url";

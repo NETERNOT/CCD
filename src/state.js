@@ -1,14 +1,12 @@
 /* state.js */
 export const state = {
-  book: null,
-  params: null,        // { complexity, openness, darkness, extensiveness, type }
-  title: '',
-  populationMap: null, // Map<char, genome[]>
-  selectedMap: null,   
-  canvasSize: 200,     // overwritten on init for dynamic sizing
-
-  finalizedMap: new Map(), // char, genome
-  view: 'evolution', // 'evolution' | 'cover'
+  book: null,               // openLibrary 
+  params: null,             // { complexity, openness, darkness, extensiveness, type }
+  title: '',                // Parsed Title
+  populationMap: null,      // Map<char, genome[]>
+  canvasSize: 200,          // overwritten on init for dynamic sizing
+  finalizedMap: new Map(),  // char, genome
+  view: 'evolution',        // 'evolution' | 'cover' | 'about'
 }
 
 export function resetState(){

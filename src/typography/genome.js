@@ -1,6 +1,16 @@
+/* genome.js */
+/* Genotype and population logic */
+/* 
+- get points of char 
+- get break amount from params
+- assign breaks randomly to letter segments
+- get segments
+- assign root, and build tree
+- return genome { char, tree, rootId}
+*/
+
 import skeletons from "./skeletons.json";
 import { buildPolylines } from "./renderer.js";
-import { state } from "../state.js";
 
 const POPULATION_SIZE = 5;
 const MUTATION_RATE = 0.4;
@@ -188,24 +198,6 @@ export function evolvePopulation(population, selected, params) {
   while (next.length < POPULATION_SIZE) {
     const parent = tournamentSelect(population, survivors);
     next.push(mutate(parent, params));
-  }
-  return next;
-}
-
-export function createPopulationMap(title, params) {
-  const unique = [...new Set(title.toUpperCase().replace(/[^A-Z0-9]/g, ""))];
-  const map = new Map();
-  for (const char of unique) {
-    map.set(char, createNewPopulation(char, params));
-  }
-  return map;
-}
-
-export function evolvePopulationMap(populationMap, selectedMap, params) {
-  const next = new Map();
-  for (const [char, population] of populationMap) {
-    const selected = selectedMap.get(char) || [population[0]];
-    next.set(char, evolvePopulation(population, selected, params));
   }
   return next;
 }
