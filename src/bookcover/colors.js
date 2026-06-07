@@ -79,7 +79,7 @@ const GENRE_KEYS = [
 ];
 
 export function getPalette(genre){
-  const key = GENRE_KEYS[genre] ?? "experimental";
+  const key = GENRE_KEYS.includes(genre) ? genre : "experimental";
   return PALETTE_GENERATORS[key]();
 }
 

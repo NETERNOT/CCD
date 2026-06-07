@@ -12,17 +12,16 @@
  * @property {number} complexity
  * @property {number} darkness
  * @property {number} extensiveness
- * @property {string} type
+ * @property {string} genre
  */
 
 const SYSTEM_PROMPT = `
 You are a literary analyst. Analyze book data. Return JSON only:
 {
-  "openness": float(0-1),
-  "complexity": float(0-1),
-  // "darkness": float(0-1),
-  "extensiveness": float(0-1),
-  "type": "literary"|"historical"|"crime"|"experimental"|"genre"(default)
+  "openness": float(0-1), //amount of locations
+  "complexity": float(0-1),  //plot density, character count
+  "extensiveness": float(0-1), //text length
+  "genre": "literary"|"historical"|"crime"|"experimental"|"genre"(default)
 }`.trim();
 
 /**
@@ -74,15 +73,14 @@ Year:${book.first_publish_date ?? "(unknown)"}
 
         generationConfig: {
           responseMimeType: "application/json",
-          temperature: 0.2, // Um pouco mais baixo ajuda a ser mais direto
+          temperature: 0.2,
           responseSchema: {
             type: "OBJECT",
             properties: {
               openness: { type: "NUMBER" },
               complexity: { type: "NUMBER" },
-              // darkness: { type: "NUMBER" },
               extensiveness: { type: "NUMBER" },
-              type: {
+              genre: {
                 type: "STRING",
                 enum: [
                   "literary",
@@ -96,9 +94,8 @@ Year:${book.first_publish_date ?? "(unknown)"}
             required: [
               "openness",
               "complexity",
-              // "darkness",
               "extensiveness",
-              "type",
+              "genre",
             ],
           },
         },

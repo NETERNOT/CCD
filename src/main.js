@@ -150,13 +150,13 @@ confirmBtn.addEventListener("click", async () => {
 
   // Update cover info
   coverInfo[0].textContent = state.book.title;
-  coverInfo[1].textContent = state.params.type;
+  coverInfo[1].textContent = state.params.genre;
 });
 
 // ── Cover View Actions ────────────────────────────────────────
 
 randomizeBtn.addEventListener("click", () =>
-  randomizeColors(coverCanvases, coverScopes, state.params?.type),
+  randomizeColors(coverCanvases, coverScopes, state.params?.genre),
 );
 
 exportBtn.addEventListener("click", async () => {

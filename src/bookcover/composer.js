@@ -11,7 +11,7 @@ export async function composeCover(
   params,
   title,
 ) {
-  const { color1, color2 } = getPalette(params.type);
+  const { color1, color2 } = getPalette(params.genre);
   const lines = title.split(" ");
 
   const polylines = [];
