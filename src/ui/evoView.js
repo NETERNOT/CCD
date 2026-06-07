@@ -8,7 +8,7 @@ export function createParameterItem(key, value) {
   switch (key) {
     case "complexity": text = "Plot Density"; break;
     case "openness":   text = "Amount of Locations"; break;
-    case "darkness":   text = "Emotional Tone"; break;
+    // case "darkness":   text = "Emotional Tone"; break;
     case "extensiveness": text = "Text Length"; break;
     default: text = key;
   }

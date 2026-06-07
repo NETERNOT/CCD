@@ -20,7 +20,7 @@ You are a literary analyst. Analyze book data. Return JSON only:
 {
   "openness": float(0-1),
   "complexity": float(0-1),
-  "darkness": float(0-1),
+  // "darkness": float(0-1),
   "extensiveness": float(0-1),
   "type": "literary"|"historical"|"crime"|"experimental"|"genre"(default)
 }`.trim();
@@ -80,7 +80,7 @@ Year:${book.first_publish_date ?? "(unknown)"}
             properties: {
               openness: { type: "NUMBER" },
               complexity: { type: "NUMBER" },
-              darkness: { type: "NUMBER" },
+              // darkness: { type: "NUMBER" },
               extensiveness: { type: "NUMBER" },
               type: {
                 type: "STRING",
@@ -96,7 +96,7 @@ Year:${book.first_publish_date ?? "(unknown)"}
             required: [
               "openness",
               "complexity",
-              "darkness",
+              // "darkness",
               "extensiveness",
               "type",
             ],
@@ -124,7 +124,10 @@ Year:${book.first_publish_date ?? "(unknown)"}
     throw err;
   }
 
-  const numericKeys = ["openness", "complexity", "darkness", "extensiveness"];
+  const numericKeys = ["openness", 
+    "complexity", 
+    // "darkness", 
+    "extensiveness"];
 
   for (const key of numericKeys) {
     params[key] = Math.min(1, Math.max(0, Number(params[key]) || 0));
